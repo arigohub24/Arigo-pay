@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Add useNavigate
 import { useState } from "react";
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ const signupSchema = yup.object().shape({
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
   const { 
     register, 
     handleSubmit, 
@@ -46,9 +47,10 @@ const SignUpPage = () => {
         throw error;
       }
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Account created successfully");
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      navigate("/verify", { state: { email: data.email } }); // Navigate to verification with email
     },
   });
 
@@ -73,7 +75,7 @@ const SignUpPage = () => {
           <p className="text-sm text-gray-600">Secure Banking Made Simple</p>
         </motion.div>
       </div>
-
+  
       {/* Form section - full width on mobile */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center p-5 md:p-8 lg:p-12">
         <motion.div 
@@ -100,7 +102,7 @@ const SignUpPage = () => {
               Join Arigo Pay and experience secure banking
             </motion.p>
           </div>
-
+  
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
@@ -123,7 +125,7 @@ const SignUpPage = () => {
                 <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
               )}
             </motion.div>
-
+  
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -145,7 +147,7 @@ const SignUpPage = () => {
                 <p className="mt-1 text-sm text-red-500">{errors.username.message}</p>
               )}
             </motion.div>
-
+  
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -167,7 +169,7 @@ const SignUpPage = () => {
                 <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>
               )}
             </motion.div>
-
+  
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -200,7 +202,7 @@ const SignUpPage = () => {
                 <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
               )}
             </motion.div>
-
+  
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -227,7 +229,7 @@ const SignUpPage = () => {
                 )}
               </button>
             </motion.div>
-
+  
             {isError && (
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -238,7 +240,7 @@ const SignUpPage = () => {
               </motion.div>
             )}
           </form>
-
+  
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -254,7 +256,7 @@ const SignUpPage = () => {
           </motion.div>
         </motion.div>
       </div>
-
+  
       {/* Right side - Visual - Hidden on mobile, shown on lg and up */}
       <div className="hidden lg:block lg:w-1/2 bg-gradient-to-br from-blue-50 to-blue-100 relative">
         <div className="absolute inset-0 flex items-center justify-center p-12">

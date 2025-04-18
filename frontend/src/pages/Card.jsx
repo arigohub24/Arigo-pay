@@ -70,26 +70,26 @@ const VirtualPaymentCards = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto"
+        className="max-w-7xl mx-auto"
       >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-blue-900 mb-1">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+          <div className="mb-4 sm:mb-0">
+            <h1 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-1">
               Virtual Payment Cards
             </h1>
-            <p className="text-blue-700">
+            <p className="text-blue-700 text-sm sm:text-base">
               Manage all your payment methods in one place
             </p>
           </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
             onClick={() => setShowAddCardModal(true)}
           >
             <Plus size={18} className="mr-2" />
@@ -106,39 +106,41 @@ const VirtualPaymentCards = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h2 className="text-lg font-medium text-blue-800 mb-3">Default Payment Method</h2>
+            <h2 className="text-base sm:text-lg font-medium text-blue-800 mb-3">Default Payment Method</h2>
             <div className="relative">
               <motion.div
-                className={`relative ${defaultCard.color} h-56 rounded-2xl p-6 overflow-hidden shadow-xl`}
+                className={`relative ${defaultCard.color} h-48 sm:h-56 rounded-2xl p-5 sm:p-6 overflow-hidden shadow-xl`}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mt-12 -mr-12" />
-                <div className="absolute bottom-0 left-0 w-40 h-40 bg-white opacity-5 rounded-full -mb-8 -ml-8" />
+                <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-white opacity-5 rounded-full -mt-12 -mr-12" />
+                <div className="absolute bottom-0 left-0 w-32 sm:w-40 h-32 sm:h-40 bg-white opacity-5 rounded-full -mb-8 -ml-8" />
                 
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-white text-xl font-semibold">{defaultCard.bank}</p>
-                    <p className="text-blue-100 text-sm">{defaultCard.name}</p>
+                    <p className="text-white text-lg sm:text-xl font-semibold">{defaultCard.bank}</p>
+                    <p className="text-blue-100 text-xs sm:text-sm">{defaultCard.name}</p>
                   </div>
-                  <div className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
-                    <p className="text-white font-medium">{defaultCard.type}</p>
+                  <div className="bg-white/20 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-lg">
+                    <p className="text-white font-medium text-xs sm:text-sm">{defaultCard.type}</p>
                   </div>
                 </div>
                 
-                <div className="mt-8">
-                  <p className="text-blue-100 text-sm mb-1">Card Number</p>
-                  <p className="text-white font-mono text-lg">{defaultCard.number}</p>
+                <div className="mt-6 sm:mt-8">
+                  <p className="text-blue-100 text-xs sm:text-sm mb-1">Card Number</p>
+                  <p className="text-white font-mono text-base sm:text-lg">{defaultCard.number}</p>
                 </div>
                 
-                <div className="flex justify-between items-end mt-4">
+                <div className="flex justify-between items-end mt-3 sm:mt-4">
                   <div>
                     <p className="text-blue-100 text-xs">Expires</p>
-                    <p className="text-white">{defaultCard.expiry}</p>
+                    <p className="text-white text-sm">{defaultCard.expiry}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-blue-100 text-xs">Available Balance</p>
-                    <p className="text-white font-semibold text-xl">${defaultCard.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                    <p className="text-white font-semibold text-lg sm:text-xl">
+                      ${defaultCard.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -146,8 +148,8 @@ const VirtualPaymentCards = () => {
           </motion.div>
         ))}
 
-        <h2 className="text-lg font-medium text-blue-800 mb-4">All Payment Cards</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="text-base sm:text-lg font-medium text-blue-800 mb-4">All Payment Cards</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {cards.map((card) => (
             <motion.div
               key={card.id}
@@ -171,14 +173,14 @@ const VirtualPaymentCards = () => {
           {/* Add Card Placeholder */}
           <motion.div
             whileHover={{ scale: 1.03 }}
-            className="bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl flex flex-col items-center justify-center p-8 cursor-pointer h-56"
+            className="bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl flex flex-col items-center justify-center p-6 sm:p-8 cursor-pointer h-48 sm:h-56"
             onClick={() => setShowAddCardModal(true)}
           >
             <div className="bg-blue-100 p-3 rounded-full mb-3">
-              <Plus size={24} className="text-blue-600" />
+              <Plus size={20} className="text-blue-600" />
             </div>
-            <p className="text-blue-700 font-medium">Add Payment Card</p>
-            <p className="text-blue-500 text-sm mt-1 text-center">
+            <p className="text-blue-700 font-medium text-sm sm:text-base">Add Payment Card</p>
+            <p className="text-blue-500 text-xs sm:text-sm mt-1 text-center">
               Connect a new bank card or create a virtual one
             </p>
           </motion.div>
@@ -206,10 +208,10 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
     >
       {/* Card Header */}
       <div className={`${card.color} p-4 relative`}>
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mt-16 -mr-16" />
+        <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-white opacity-5 rounded-full -mt-12 sm:-mt-16 -mr-12 sm:-mr-16" />
         
         <div className="flex justify-between">
-          <p className="text-white font-medium">{card.bank}</p>
+          <p className="text-white font-medium text-sm sm:text-base">{card.bank}</p>
           {card.isDefault && (
             <span className="bg-white/20 backdrop-blur-sm text-white text-xs px-2 py-1 rounded">
               Default
@@ -217,9 +219,9 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
           )}
         </div>
         
-        <div className="mt-6 mb-1">
+        <div className="mt-4 sm:mt-6 mb-1">
           <div className="flex justify-between items-center">
-            <p className="text-white font-mono">
+            <p className="text-white font-mono text-sm sm:text-base">
               {showCardNumber ? card.number.replace('••••', '5678') : card.number}
             </p>
             <button 
@@ -235,7 +237,7 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
               <p className="text-white text-sm">{card.expiry}</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded self-end">
-              <p className="text-white text-sm">{card.type}</p>
+              <p className="text-white text-xs sm:text-sm">{card.type}</p>
             </div>
           </div>
         </div>
@@ -245,15 +247,15 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
       <div className="p-4">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="font-medium text-blue-900">{card.name}</h3>
-            <p className="text-blue-500 text-sm">{card.bank}</p>
+            <h3 className="font-medium text-blue-900 text-sm sm:text-base">{card.name}</h3>
+            <p className="text-blue-500 text-xs sm:text-sm">{card.bank}</p>
           </div>
           <button 
             className="text-blue-400 hover:text-blue-600 transition-colors"
             onClick={onToggle}
           >
             <ChevronDown 
-              size={20} 
+              size={18} 
               className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
             />
           </button>
@@ -269,19 +271,19 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
             className="mt-4 pt-4 border-t border-blue-100"
           >
             <div className="mb-4">
-              <p className="text-sm text-blue-500">Available Balance</p>
-              <p className="text-blue-900 font-semibold text-lg">
+              <p className="text-xs sm:text-sm text-blue-500">Available Balance</p>
+              <p className="text-blue-900 font-semibold text-base sm:text-lg">
                 ${card.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
             </div>
             
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg text-sm flex-1"
+                className="flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg text-xs sm:text-sm flex-1"
               >
-                <CreditCard size={16} className="mr-1" />
+                <CreditCard size={14} className="mr-1" />
                 Pay Now
               </motion.button>
               
@@ -290,7 +292,7 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onSetDefault}
-                  className="flex items-center justify-center px-3 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm"
+                  className="flex items-center justify-center px-3 py-2 bg-blue-100 text-blue-700 rounded-lg text-xs sm:text-sm"
                 >
                   Set Default
                 </motion.button>
@@ -301,7 +303,7 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center justify-center p-2 bg-blue-50 text-blue-600 rounded-lg"
               >
-                <Edit size={16} />
+                <Edit size={14} />
               </motion.button>
               
               <motion.button
@@ -310,7 +312,7 @@ const PaymentCard = ({ card, isExpanded, onToggle, onDelete, onSetDefault }) => 
                 onClick={onDelete}
                 className="flex items-center justify-center p-2 bg-red-50 text-red-600 rounded-lg"
               >
-                <Trash2 size={16} />
+                <Trash2 size={14} />
               </motion.button>
             </div>
           </motion.div>
@@ -359,33 +361,33 @@ const AddCardModal = ({ onClose, onAdd }) => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4"
+        className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md mx-4 sm:max-w-lg"
       >
-        <h2 className="text-xl font-bold text-blue-900 mb-4">Add Payment Card</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-blue-900 mb-4">Add Payment Card</h2>
         
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-blue-700 mb-1">Card Name</label>
+              <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Card Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 placeholder="e.g. Travel Rewards Card"
                 required
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-blue-700 mb-1">Bank Name</label>
+              <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Bank Name</label>
               <input
                 type="text"
                 name="bank"
                 value={formData.bank}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 placeholder="e.g. Chase"
                 required
               />
@@ -393,12 +395,12 @@ const AddCardModal = ({ onClose, onAdd }) => {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">Card Type</label>
+                <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Card Type</label>
                 <select
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   required
                 >
                   <option value="Visa">Visa</option>
@@ -409,12 +411,12 @@ const AddCardModal = ({ onClose, onAdd }) => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">Card Color</label>
+                <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Card Color</label>
                 <select
                   name="color"
                   value={formData.color}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 >
                   <option value="bg-blue-600">Blue</option>
                   <option value="bg-indigo-700">Indigo</option>
@@ -426,13 +428,13 @@ const AddCardModal = ({ onClose, onAdd }) => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-blue-700 mb-1">Card Number</label>
+              <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Card Number</label>
               <input
                 type="text"
                 name="number"
                 value={formData.number}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 placeholder="1234 5678 9012 3456"
                 required
                 maxLength="19"
@@ -443,13 +445,13 @@ const AddCardModal = ({ onClose, onAdd }) => {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">Expiry Date</label>
+                <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Expiry Date</label>
                 <input
                   type="text"
                   name="expiry"
                   value={formData.expiry}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   placeholder="MM/YY"
                   required
                   maxLength="5"
@@ -458,13 +460,13 @@ const AddCardModal = ({ onClose, onAdd }) => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">Balance ($)</label>
+                <label className="block text-xs sm:text-sm font-medium text-blue-700 mb-1">Balance ($)</label>
                 <input
                   type="number"
                   name="balance"
                   value={formData.balance}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   placeholder="0.00"
                   step="0.01"
                   min="0"
@@ -481,7 +483,7 @@ const AddCardModal = ({ onClose, onAdd }) => {
                 onChange={handleChange}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-blue-300 rounded"
               />
-              <label htmlFor="default" className="ml-2 block text-sm text-blue-700">
+              <label htmlFor="default" className="ml-2 block text-xs sm:text-sm text-blue-700">
                 Set as default payment method
               </label>
             </div>
@@ -491,13 +493,13 @@ const AddCardModal = ({ onClose, onAdd }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50"
+              className="px-4 py-2 border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base"
             >
               Add Card
             </button>

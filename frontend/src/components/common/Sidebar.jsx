@@ -24,11 +24,11 @@ import { motion, AnimatePresence } from "framer-motion"
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(true)
-  const [isHovered, setIsHovered] = useState(false)
+  const [ setIsHovered] = useState(false)
   const queryClient = useQueryClient()
   const location = useLocation()
 
-  // Responsive sidebar based on screen size
+  // Improved responsive sidebar logic
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1024) {
@@ -69,7 +69,7 @@ const Sidebar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] })
 
   const navItems = [
-    { icon: <FaHome className="w-5 h-5" />, label: "Dashboard", path: "/", color: "text-indigo-500" },
+    { icon: <FaHome className="w-5 h-5" />, label: "Dashboard", path: "/dashboard", color: "text-indigo-500" },
     { icon: <FaExchangeAlt className="w-5 h-5" />, label: "Transfers", path: "/transfers", color: "text-emerald-500" },
     { icon: <FaHistory className="w-5 h-5" />, label: "Transactions", path: "/transactions", color: "text-violet-500" },
     { icon: <FaFileInvoice className="w-5 h-5" />, label: "Bills", path: "/bills", color: "text-amber-500" },
@@ -92,20 +92,27 @@ const Sidebar = () => {
     { icon: <FaCog className="w-5 h-5" />, label: "Settings", path: "/settings", color: "text-gray-500" },
   ]
 
+  // Handle logout with preventing default click
+  const handleLogout = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    logout()
+  }
+
   return (
     <motion.div
       className={`relative bg-gradient-to-br from-white via-gray-50 to-gray-100 shadow-xl h-screen border-r border-gray-200/70 ${
-        isExpanded ? "w-80" : "w-20"
+        isExpanded ? "w-64" : "w-16"
       } transition-all duration-300 ease-in-out flex-shrink-0`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{ width: isExpanded ? 320 : 80 }}
-      animate={{ width: isExpanded ? 320 : 80 }}
+      initial={{ width: isExpanded ? 256 : 64 }}
+      animate={{ width: isExpanded ? 256 : 64 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="sticky top-0 left-0 h-full flex flex-col overflow-hidden">
         {/* Logo and Toggle */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200/80 bg-white/50 backdrop-blur-sm">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200/80 bg-white/50 backdrop-blur-sm">
           <AnimatePresence>
             {isExpanded && (
               <motion.div
@@ -113,7 +120,7 @@ const Sidebar = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: 0.1 }}
-                className="text-2xl font-bold bg-gradient-to-r from-indigo-700 to-indigo-500 bg-clip-text text-transparent whitespace-nowrap"
+                className="text-xl font-bold bg-gradient-to-r from-indigo-700 to-indigo-500 bg-clip-text text-transparent whitespace-nowrap"
               >
                 Arigo Pay
               </motion.div>
@@ -122,9 +129,7 @@ const Sidebar = () => {
 
           <motion.button
             onClick={() => setIsExpanded(!isExpanded)}
-            className={`p-2 rounded-full bg-white shadow-sm hover:bg-indigo-50 hover:shadow-md transition-all duration-200 ${
-              isHovered || isExpanded ? "opacity-100" : "opacity-0"
-            }`}
+            className="p-2 rounded-full bg-white shadow-sm hover:bg-indigo-50 hover:shadow-md transition-all duration-200"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -137,18 +142,18 @@ const Sidebar = () => {
         </div>
 
         {/* Navigation Items */}
-        <ul className="flex flex-col gap-2 mt-6 px-4 overflow-y-auto custom-scrollbar flex-grow">
+        <ul className="flex flex-col gap-1 mt-4 px-3 overflow-y-auto custom-scrollbar flex-grow">
           {navItems.map((item, index) => (
             <motion.li
               key={index}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
               <Link
                 to={item.path}
-                className={`flex items-center transition-all duration-200 rounded-xl py-3 ${
-                  isExpanded ? "px-5" : "px-3 justify-center"
+                className={`flex items-center transition-all duration-200 rounded-xl py-2.5 ${
+                  isExpanded ? "px-4" : "px-3 justify-center"
                 } ${
                   location.pathname === item.path
                     ? "bg-gradient-to-r from-indigo-50 to-indigo-100 text-indigo-700 font-semibold shadow-sm"
@@ -172,7 +177,7 @@ const Sidebar = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
                       transition={{ delay: 0.05 * index }}
-                      className="ml-4 text-base font-medium whitespace-nowrap"
+                      className="ml-3 text-sm font-medium whitespace-nowrap"
                     >
                       {item.label}
                     </motion.span>
@@ -183,94 +188,76 @@ const Sidebar = () => {
           ))}
         </ul>
 
-        {/* User Profile - Fixed for both expanded and collapsed states */}
+        {/* User Profile - Improved for both states */}
         {authUser && (
-          <motion.div
-            className={`mt-auto mb-6 mx-4 p-4 bg-white rounded-xl shadow-md border border-gray-100 transition-all duration-300 ${
-              isExpanded ? "" : "flex justify-center"
-            }`}
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Link
-              to={`/profile/${authUser.username}`}
-              className={`flex ${isExpanded ? "items-center" : "flex-col items-center"}`}
+          <div className="mt-auto mb-4 mx-3">
+            <motion.div
+              className={`p-3 bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-300`}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div className="avatar relative" whileHover={{ rotate: 5 }}>
-                <div className={`${isExpanded ? "w-10" : "w-12"} rounded-full ring-2 ring-indigo-200 overflow-hidden`}>
-                  <img
-                    src={authUser?.profileImg || "/avatar-placeholder.png"}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Logout button - Positioned differently based on sidebar state */}
-                {!isExpanded && (
-                  <motion.button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      logout()
-                    }}
-                    className="absolute -top-1 -right-1 p-1.5 rounded-full bg-white shadow-md hover:bg-red-50 border border-gray-200"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <FaSignOutAlt className="text-red-500 w-3 h-3" />
-                  </motion.button>
-                )}
-              </motion.div>
-
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    className="ml-3 flex-1 overflow-hidden"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <p className="text-gray-800 font-semibold text-sm truncate">{authUser?.fullName}</p>
-                    <p className="text-gray-500 text-xs">@{authUser?.username}</p>
+              <div className="flex items-center justify-between">
+                <Link
+                  to={`/profile/${authUser.username}`}
+                  className={`flex items-center flex-1 ${!isExpanded && "justify-center"}`}
+                >
+                  <motion.div className="relative" whileHover={{ rotate: 5 }}>
+                    <div className="rounded-full ring-2 ring-indigo-200 overflow-hidden">
+                      <img
+                        src={authUser?.profileImg || "/avatar-placeholder.png"}
+                        alt="Profile"
+                        className={`${isExpanded ? "w-8 h-8" : "w-10 h-10"} object-cover`}
+                      />
+                    </div>
                   </motion.div>
-                )}
-              </AnimatePresence>
+                  
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        className="ml-3 flex-1 overflow-hidden"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                      >
+                        <p className="text-gray-800 font-semibold text-sm truncate">{authUser?.fullName}</p>
+                        <p className="text-gray-500 text-xs">@{authUser?.username}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Link>
 
-              {/* Logout button for expanded state */}
-              {isExpanded && (
+                {/* Logout button - Consistently positioned in both states */}
                 <motion.button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    logout()
-                  }}
-                  className="p-2 rounded-full hover:bg-red-50 ml-2 group"
+                  onClick={handleLogout}
+                  className={`rounded-full hover:bg-red-50 transition-colors ${
+                    isExpanded ? "p-2 ml-1" : "p-2"
+                  }`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaSignOutAlt className="text-gray-500 group-hover:text-red-500 transition-colors w-5 h-5" />
+                  <FaSignOutAlt className={`text-red-500 ${isExpanded ? "w-4 h-4" : "w-4 h-4"}`} />
                 </motion.button>
-              )}
-            </Link>
-
-            {/* Username for collapsed state */}
-            <AnimatePresence>
-              {!isExpanded && (
+              </div>
+              
+              {/* Username for collapsed state - only show if not expanded */}
+              {!isExpanded && authUser?.username && (
                 <motion.p
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
-                  className="text-xs text-gray-600 font-medium mt-2 text-center truncate"
+                  className="text-xs text-gray-600 font-medium mt-1.5 text-center truncate"
                 >
-                  {authUser?.username?.substring(0, 6)}
-                  {authUser?.username?.length > 6 ? "..." : ""}
+                  {authUser.username.length > 6 
+                    ? `${authUser.username.substring(0, 6)}...` 
+                    : authUser.username}
                 </motion.p>
               )}
-            </AnimatePresence>
-          </motion.div>
+            </motion.div>
+          </div>
         )}
       </div>
     </motion.div>
   )
 }
 
-export default Sidebar;
+export default Sidebar

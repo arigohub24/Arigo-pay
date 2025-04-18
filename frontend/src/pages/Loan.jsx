@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState } from 'react';
 
 export default function LoanDashboard() {
   const [loans, setLoans] = useState([
@@ -52,7 +52,6 @@ export default function LoanDashboard() {
   };
 
   const handleSubmitApplication = () => {
-    // Create new loan object
     const loanId = loans.length + 1;
     const interestRates = {
       'Personal Loan': 5.5,
@@ -80,8 +79,6 @@ export default function LoanDashboard() {
     setLoans([...loans, createdLoan]);
     setShowLoanForm(false);
     setVisibleSection('dashboard');
-    
-    // Reset form
     setNewLoan({
       type: 'Personal Loan',
       amount: 5000,
@@ -115,7 +112,6 @@ export default function LoanDashboard() {
     }).format(amount);
   };
 
-  // Simple sliding animation for page transitions
   const getTransitionClass = () => {
     if (isAnimating) {
       return 'opacity-0 transform translate-y-4';
@@ -125,93 +121,93 @@ export default function LoanDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header - Mobile optimized */}
       <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex items-center mb-3 sm:mb-0">
             <div className="bg-blue-600 text-white p-2 rounded-lg mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">LoanPro</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">LoanPro</h1>
           </div>
-          <nav className="flex space-x-4">
+          <nav className="flex space-x-2 sm:space-x-4 w-full sm:w-auto justify-around sm:justify-normal">
             <button 
               onClick={() => setVisibleSection('dashboard')}
-              className={`px-3 py-2 rounded-md text-sm font-medium ${visibleSection === 'dashboard' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+              className={`px-2 py-1 sm:px-3 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${visibleSection === 'dashboard' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
             >
               Dashboard
             </button>
             <button 
               onClick={handleApplyLoan}
-              className={`px-3 py-2 rounded-md text-sm font-medium ${visibleSection === 'application' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+              className={`px-2 py-1 sm:px-3 sm:py-2 rounded-md text-xs sm:text-sm font-medium ${visibleSection === 'application' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
             >
               Apply
             </button>
-            <button className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600">
+            <button className="px-2 py-1 sm:px-3 sm:py-2 rounded-md text-xs sm:text-sm font-medium text-gray-600 hover:text-blue-600">
               Help
             </button>
           </nav>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Dashboard View */}
         {visibleSection === 'dashboard' && (
           <div className={getTransitionClass()}>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-800">Your Loan Dashboard</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-0">Your Loan Dashboard</h2>
               <button
                 onClick={handleApplyLoan}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition-all duration-300 transform hover:scale-105"
+                className="px-3 py-1 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
               >
                 Apply for New Loan
               </button>
             </div>
 
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+            {/* Summary Cards - Stack on mobile */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-blue-500">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Total Balance</p>
-                    <p className="text-2xl font-bold text-gray-800">
+                    <p className="text-xs sm:text-sm font-medium text-gray-500">Total Balance</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-800">
                       {formatCurrency(loans.reduce((sum, loan) => sum + loan.amount, 0))}
                     </p>
                   </div>
-                  <div className="p-2 bg-blue-100 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="p-1 sm:p-2 bg-blue-100 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-green-500">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Monthly Payments</p>
-                    <p className="text-2xl font-bold text-gray-800">
+                    <p className="text-xs sm:text-sm font-medium text-gray-500">Monthly Payments</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-800">
                       {formatCurrency(loans.reduce((sum, loan) => sum + (loan.status === 'Active' ? loan.monthlyPayment : 0), 0))}
                     </p>
                   </div>
-                  <div className="p-2 bg-green-100 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="p-1 sm:p-2 bg-green-100 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-purple-500">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm font-medium text-gray-500">Active Loans</p>
-                    <p className="text-2xl font-bold text-gray-800">
+                    <p className="text-xs sm:text-sm font-medium text-gray-500">Active Loans</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-800">
                       {loans.filter(loan => loan.status === 'Active').length}
                     </p>
                   </div>
-                  <div className="p-2 bg-purple-100 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="p-1 sm:p-2 bg-purple-100 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -219,44 +215,44 @@ export default function LoanDashboard() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-medium text-gray-800 mb-4">Your Loans</h3>
+            <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">Your Loans</h3>
               
-              <div className="grid grid-cols-1 gap-4">
-                {loans.map((loan,) => (
+              <div className="grid grid-cols-1 gap-3 sm:gap-4">
+                {loans.map((loan) => (
                   <div 
                     key={loan.id}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+                    className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                     onClick={() => handleCardClick(loan)}
                   >
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="mb-2 md:mb-0">
+                    <div className="flex flex-col sm:flex-row justify-between">
+                      <div className="mb-2 sm:mb-0">
                         <div className="flex items-center">
                           <div className={`w-2 h-2 rounded-full mr-2 ${loan.status === 'Active' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                          <h4 className="text-lg font-medium text-gray-800">{loan.type}</h4>
+                          <h4 className="text-base sm:text-lg font-medium text-gray-800">{loan.type}</h4>
                         </div>
-                        <p className="text-gray-600 text-sm">{formatCurrency(loan.amount)} • {loan.interestRate}% interest</p>
+                        <p className="text-gray-600 text-xs sm:text-sm">{formatCurrency(loan.amount)} • {loan.interestRate}% interest</p>
                       </div>
-                      <div className="flex items-center space-x-4">
-                        <div className="text-right">
-                          <p className="text-sm text-gray-500">Monthly Payment</p>
-                          <p className="text-base font-medium text-gray-800">{formatCurrency(loan.monthlyPayment)}</p>
+                      <div className="flex items-center justify-between sm:justify-end sm:space-x-4">
+                        <div className="text-right sm:text-left">
+                          <p className="text-xs sm:text-sm text-gray-500">Monthly</p>
+                          <p className="text-sm sm:text-base font-medium text-gray-800">{formatCurrency(loan.monthlyPayment)}</p>
                         </div>
-                        <div className="bg-blue-100 text-blue-800 py-1 px-3 rounded-full text-xs font-medium">
+                        <div className="bg-blue-100 text-blue-800 py-0.5 px-2 sm:py-1 sm:px-3 rounded-full text-xs font-medium">
                           {loan.status}
                         </div>
                       </div>
                     </div>
                     
                     {loan.status === 'Active' && (
-                      <div className="mt-4">
+                      <div className="mt-3 sm:mt-4">
                         <div className="flex justify-between text-xs text-gray-500 mb-1">
                           <span>Progress</span>
                           <span>{loan.progress}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-gray-200 rounded-full h-1.5 sm:h-2">
                           <div 
-                            className="bg-blue-600 h-2 rounded-full" 
+                            className="bg-blue-600 h-1.5 sm:h-2 rounded-full" 
                             style={{ width: `${loan.progress}%` }}
                           ></div>
                         </div>
@@ -274,44 +270,44 @@ export default function LoanDashboard() {
           <div className={getTransitionClass()}>
             <button 
               onClick={goBack}
-              className="flex items-center text-blue-600 mb-4 hover:text-blue-800 font-medium"
+              className="flex items-center text-blue-600 mb-3 sm:mb-4 hover:text-blue-800 font-medium text-sm sm:text-base"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to Dashboard
             </button>
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="bg-blue-600 px-6 py-4">
-                <h2 className="text-xl font-bold text-white">{selectedLoan.type} Details</h2>
+              <div className="bg-blue-600 px-4 py-3 sm:px-6 sm:py-4">
+                <h2 className="text-lg sm:text-xl font-bold text-white">{selectedLoan.type} Details</h2>
               </div>
               
-              <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <div className="mb-6">
-                      <h3 className="text-lg font-medium text-gray-800 mb-4">Loan Information</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-600">Principal Amount</span>
-                          <span className="font-medium text-gray-800">{formatCurrency(selectedLoan.amount)}</span>
+                    <div className="mb-4 sm:mb-6">
+                      <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">Loan Information</h3>
+                      <div className="space-y-2 sm:space-y-3">
+                        <div className="flex justify-between py-1 sm:py-2 border-b border-gray-100">
+                          <span className="text-xs sm:text-sm text-gray-600">Principal Amount</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">{formatCurrency(selectedLoan.amount)}</span>
                         </div>
-                        <div className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-600">Interest Rate</span>
-                          <span className="font-medium text-gray-800">{selectedLoan.interestRate}%</span>
+                        <div className="flex justify-between py-1 sm:py-2 border-b border-gray-100">
+                          <span className="text-xs sm:text-sm text-gray-600">Interest Rate</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">{selectedLoan.interestRate}%</span>
                         </div>
-                        <div className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-600">Term</span>
-                          <span className="font-medium text-gray-800">{selectedLoan.term} months</span>
+                        <div className="flex justify-between py-1 sm:py-2 border-b border-gray-100">
+                          <span className="text-xs sm:text-sm text-gray-600">Term</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">{selectedLoan.term} months</span>
                         </div>
-                        <div className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-600">Monthly Payment</span>
-                          <span className="font-medium text-gray-800">{formatCurrency(selectedLoan.monthlyPayment)}</span>
+                        <div className="flex justify-between py-1 sm:py-2 border-b border-gray-100">
+                          <span className="text-xs sm:text-sm text-gray-600">Monthly Payment</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">{formatCurrency(selectedLoan.monthlyPayment)}</span>
                         </div>
-                        <div className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-600">Status</span>
-                          <span className={`font-medium ${selectedLoan.status === 'Active' ? 'text-green-600' : 'text-yellow-600'}`}>
+                        <div className="flex justify-between py-1 sm:py-2 border-b border-gray-100">
+                          <span className="text-xs sm:text-sm text-gray-600">Status</span>
+                          <span className={`text-xs sm:text-sm font-medium ${selectedLoan.status === 'Active' ? 'text-green-600' : 'text-yellow-600'}`}>
                             {selectedLoan.status}
                           </span>
                         </div>
@@ -320,14 +316,14 @@ export default function LoanDashboard() {
                     
                     {selectedLoan.status === 'Active' && (
                       <div>
-                        <h3 className="text-lg font-medium text-gray-800 mb-4">Payment Progress</h3>
-                        <div className="mb-2 flex justify-between text-sm">
+                        <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">Payment Progress</h3>
+                        <div className="mb-1 sm:mb-2 flex justify-between text-xs sm:text-sm">
                           <span className="text-gray-600">Completion</span>
                           <span className="font-medium text-gray-800">{selectedLoan.progress}%</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-4 mb-6">
+                        <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4 mb-4 sm:mb-6">
                           <div 
-                            className="bg-blue-600 h-4 rounded-full transition-all duration-1000" 
+                            className="bg-blue-600 h-3 sm:h-4 rounded-full transition-all duration-1000" 
                             style={{ width: `${selectedLoan.progress}%` }}
                           ></div>
                         </div>
@@ -336,33 +332,33 @@ export default function LoanDashboard() {
                   </div>
                   
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800 mb-4">Payment Schedule</h3>
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <div className="space-y-3">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">Payment Schedule</h3>
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                      <div className="space-y-2 sm:space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-gray-600">Next Payment</span>
-                          <span className="text-sm font-medium text-gray-800">May 15, 2025</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-600">Next Payment</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">May 15, 2025</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-gray-600">Amount Due</span>
-                          <span className="text-sm font-medium text-gray-800">{formatCurrency(selectedLoan.monthlyPayment)}</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-600">Amount Due</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-800">{formatCurrency(selectedLoan.monthlyPayment)}</span>
                         </div>
                       </div>
                       
                       {selectedLoan.status === 'Active' && (
-                        <button className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105">
+                        <button className="w-full mt-3 sm:mt-4 px-3 py-1 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base">
                           Make Payment
                         </button>
                       )}
                     </div>
                     
-                    <div className="mt-6">
-                      <h3 className="text-lg font-medium text-gray-800 mb-4">Loan Actions</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <button className="px-4 py-2 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                    <div className="mt-4 sm:mt-6">
+                      <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">Loan Actions</h3>
+                      <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                        <button className="px-2 py-1 sm:px-4 sm:py-2 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-xs sm:text-sm">
                           Download Statement
                         </button>
-                        <button className="px-4 py-2 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                        <button className="px-2 py-1 sm:px-4 sm:py-2 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-xs sm:text-sm">
                           Contact Support
                         </button>
                       </div>
@@ -379,28 +375,28 @@ export default function LoanDashboard() {
           <div className={getTransitionClass()}>
             <button 
               onClick={goBack}
-              className="flex items-center text-blue-600 mb-4 hover:text-blue-800 font-medium"
+              className="flex items-center text-blue-600 mb-3 sm:mb-4 hover:text-blue-800 font-medium text-sm sm:text-base"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to Dashboard
             </button>
             
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="bg-blue-600 px-6 py-4">
-                <h2 className="text-xl font-bold text-white">Apply for a New Loan</h2>
+              <div className="bg-blue-600 px-4 py-3 sm:px-6 sm:py-4">
+                <h2 className="text-lg sm:text-xl font-bold text-white">Apply for a New Loan</h2>
               </div>
               
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="max-w-2xl mx-auto">
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Loan Type
                       </label>
                       <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-2 py-1 sm:px-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm"
                         value={newLoan.type}
                         onChange={(e) => setNewLoan({...newLoan, type: e.target.value})}
                       >
@@ -413,16 +409,16 @@ export default function LoanDashboard() {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Loan Amount
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="text-gray-500">$</span>
+                        <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
+                          <span className="text-gray-500 text-xs sm:text-sm">$</span>
                         </div>
                         <input
                           type="number"
-                          className="w-full pl-8 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full pl-6 sm:pl-8 px-2 py-1 sm:px-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm"
                           value={newLoan.amount}
                           onChange={(e) => setNewLoan({...newLoan, amount: parseInt(e.target.value) || 0})}
                           min="1000"
@@ -432,11 +428,11 @@ export default function LoanDashboard() {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Term (months)
                       </label>
                       <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-2 py-1 sm:px-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm"
                         value={newLoan.term}
                         onChange={(e) => setNewLoan({...newLoan, term: parseInt(e.target.value)})}
                       >
@@ -454,12 +450,12 @@ export default function LoanDashboard() {
                       </select>
                     </div>
                     
-                    <div className="bg-blue-50 p-4 rounded-md">
-                      <h3 className="text-md font-medium text-blue-800 mb-2">Loan Estimate</h3>
-                      <div className="space-y-2">
+                    <div className="bg-blue-50 p-3 sm:p-4 rounded-md">
+                      <h3 className="text-sm sm:text-md font-medium text-blue-800 mb-1 sm:mb-2">Loan Estimate</h3>
+                      <div className="space-y-1 sm:space-y-2">
                         <div className="flex justify-between">
-                          <span className="text-sm text-blue-700">Estimated Interest Rate:</span>
-                          <span className="text-sm font-medium text-blue-800">
+                          <span className="text-xs sm:text-sm text-blue-700">Estimated Interest Rate:</span>
+                          <span className="text-xs sm:text-sm font-medium text-blue-800">
                             {newLoan.type === 'Personal Loan' ? '5.5%' : 
                              newLoan.type === 'Home Loan' ? '3.8%' : 
                              newLoan.type === 'Car Loan' ? '4.9%' : 
@@ -467,8 +463,8 @@ export default function LoanDashboard() {
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-blue-700">Estimated Monthly Payment:</span>
-                          <span className="text-sm font-medium text-blue-800">
+                          <span className="text-xs sm:text-sm text-blue-700">Estimated Monthly Payment:</span>
+                          <span className="text-xs sm:text-sm font-medium text-blue-800">
                             {(() => {
                               const interestRates = {
                                 'Personal Loan': 5.5,
@@ -485,8 +481,8 @@ export default function LoanDashboard() {
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-blue-700">Total Repayment:</span>
-                          <span className="text-sm font-medium text-blue-800">
+                          <span className="text-xs sm:text-sm text-blue-700">Total Repayment:</span>
+                          <span className="text-xs sm:text-sm font-medium text-blue-800">
                             {(() => {
                               const interestRates = {
                                 'Personal Loan': 5.5,
@@ -505,16 +501,16 @@ export default function LoanDashboard() {
                       </div>
                     </div>
                     
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex justify-end space-x-2 sm:space-x-4">
                       <button
                         onClick={goBack}
-                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                        className="px-3 py-1 sm:px-4 sm:py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-xs sm:text-sm"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={handleSubmitApplication}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition-all duration-300 transform hover:scale-105"
+                        className="px-3 py-1 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm"
                       >
                         Submit Application
                       </button>
