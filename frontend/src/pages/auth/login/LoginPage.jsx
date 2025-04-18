@@ -59,21 +59,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
-      {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-20">
+    <div className="min-h-screen bg-white flex flex-col lg:flex-row">
+      {/* Left side - Form - Always on top for mobile */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 2xl:p-20 order-2 lg:order-1">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-md w-full mx-auto"
+          className="max-w-md w-full mx-auto px-2 sm:px-0"
         >
-          <div className="mb-10">
+          <div className="mb-6 sm:mb-8 md:mb-10">
             <motion.h1 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-gray-900 mb-2"
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2"
             >
               Welcome back
             </motion.h1>
@@ -81,13 +81,13 @@ const LoginPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-gray-600"
+              className="text-sm sm:text-base text-gray-600"
             >
               Sign in to your Arigo Pay account
             </motion.p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -100,13 +100,13 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="text"
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.username ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border ${errors.username ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-sm sm:text-base`}
                   placeholder="Enter your username"
                   {...register("username")}
                 />
               </div>
               {errors.username && (
-                <p className="mt-1 text-sm text-red-500">{errors.username.message}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.username.message}</p>
               )}
             </motion.div>
 
@@ -117,7 +117,7 @@ const LoginPage = () => {
             >
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-sm font-medium text-gray-700">Password</label>
-                <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                <Link to="/forgot-password" className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 transition-colors">
                   Forgot password?
                 </Link>
               </div>
@@ -127,7 +127,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.password ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border ${errors.password ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-sm sm:text-base`}
                   placeholder="Enter your password"
                   {...register("password")}
                 />
@@ -144,7 +144,7 @@ const LoginPage = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.password.message}</p>
               )}
             </motion.div>
 
@@ -156,7 +156,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isPending}
-                className={`w-full flex items-center justify-center py-3 px-4 rounded-lg bg-blue-600 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 ${isPending ? 'opacity-80 cursor-not-allowed' : ''}`}
+                className={`w-full flex items-center justify-center py-2 sm:py-3 px-4 rounded-lg bg-blue-600 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 text-sm sm:text-base ${isPending ? 'opacity-80 cursor-not-allowed' : ''}`}
               >
                 {isPending ? (
                   <>
@@ -178,7 +178,7 @@ const LoginPage = () => {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100"
+                className="p-2 sm:p-3 bg-red-50 text-red-600 rounded-lg text-xs sm:text-sm border border-red-100"
               >
                 {error.message}
               </motion.div>
@@ -189,9 +189,9 @@ const LoginPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="mt-8 text-center"
+            className="mt-6 sm:mt-8 text-center"
           >
-            <p className="text-sm text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               Dont have an account?{' '}
               <Link to="/signup" className="text-blue-600 font-medium hover:text-blue-800 transition-colors">
                 Sign up
@@ -201,25 +201,25 @@ const LoginPage = () => {
         </motion.div>
       </div>
 
-      {/* Right side - Visual */}
-      <div className="hidden lg:block w-1/2 bg-gradient-to-br from-blue-50 to-blue-100 relative">
-        <div className="absolute inset-0 flex items-center justify-center p-12">
+      {/* Right side - Visual - Hidden on mobile, shown on lg and up */}
+      <div className="w-full lg:w-1/2 bg-gradient-to-br from-blue-50 to-blue-100 relative order-1 lg:order-2">
+        <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12">
           <div className="text-center max-w-lg mx-auto">
             <motion.div 
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto shadow-lg">
-                <FiUser className="text-white text-3xl" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                <FiUser className="text-white text-xl sm:text-2xl lg:text-3xl" />
               </div>
             </motion.div>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-3xl font-bold text-gray-800 mb-4"
+              className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 sm:mb-4"
             >
               Secure Banking Made Simple
             </motion.h2>
@@ -227,7 +227,7 @@ const LoginPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="text-gray-600 text-lg"
+              className="text-gray-600 text-sm sm:text-base lg:text-lg"
             >
               Manage your finances with confidence using our industry-leading security features.
             </motion.p>

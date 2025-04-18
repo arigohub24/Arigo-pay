@@ -22,7 +22,7 @@ import toast from "react-hot-toast"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const BankSidebar = () => {
+const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(true)
   const [isHovered, setIsHovered] = useState(false)
   const queryClient = useQueryClient()
@@ -273,4 +273,4 @@ const BankSidebar = () => {
   )
 }
 
-export default BankSidebar
+export default Sidebar;
