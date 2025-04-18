@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { FiMail, FiLock, FiUser, FiCreditCard, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
+import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
@@ -57,21 +57,37 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
-      {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-20">
+    <div className="min-h-screen bg-white flex flex-col lg:flex-row">
+      {/* Visual header for mobile */}
+      <div className="lg:hidden w-full bg-gradient-to-br from-blue-50 to-blue-100 py-6">
+        <motion.div 
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-col items-center justify-center"
+        >
+          <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-md mb-3">
+            <FiUser className="text-white text-xl" />
+          </div>
+          <h2 className="text-lg font-bold text-gray-800">Arigo Pay</h2>
+          <p className="text-sm text-gray-600">Secure Banking Made Simple</p>
+        </motion.div>
+      </div>
+
+      {/* Form section - full width on mobile */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center p-5 md:p-8 lg:p-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-md w-full mx-auto"
+          className="w-full max-w-md mx-auto"
         >
-          <div className="mb-10">
+          <div className="mb-6">
             <motion.h1 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-gray-900 mb-2"
+              className="text-2xl font-bold text-gray-900 mb-1"
             >
               Create your account
             </motion.h1>
@@ -79,13 +95,13 @@ const SignUpPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-gray-600"
+              className="text-sm text-gray-600"
             >
               Join Arigo Pay and experience secure banking
             </motion.p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <motion.div 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -98,7 +114,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="email"
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full py-3 px-4 rounded-lg border ${errors.email ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-base`}
                   placeholder="your@email.com"
                   {...register("email")}
                 />
@@ -120,7 +136,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="text"
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.username ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full py-3 px-4 rounded-lg border ${errors.username ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-base`}
                   placeholder="Choose a username"
                   {...register("username")}
                 />
@@ -142,7 +158,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="text"
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.fullName ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full py-3 px-4 rounded-lg border ${errors.fullName ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-base`}
                   placeholder="Your full name"
                   {...register("fullName")}
                 />
@@ -164,7 +180,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`pl-10 w-full px-4 py-3 rounded-lg border ${errors.password ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition`}
+                  className={`pl-10 w-full py-3 px-4 rounded-lg border ${errors.password ? 'border-red-300 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'} focus:ring-2 focus:border-blue-500 outline-none transition text-base`}
                   placeholder="Create a password"
                   {...register("password")}
                 />
@@ -194,7 +210,7 @@ const SignUpPage = () => {
               <button
                 type="submit"
                 disabled={isPending}
-                className={`w-full flex items-center justify-center py-3 px-4 rounded-lg bg-blue-600 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 ${isPending ? 'opacity-80 cursor-not-allowed' : ''}`}
+                className={`w-full flex items-center justify-center py-3 px-4 rounded-lg bg-blue-600 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 text-base ${isPending ? 'opacity-80 cursor-not-allowed' : ''}`}
               >
                 {isPending ? (
                   <>
@@ -226,8 +242,8 @@ const SignUpPage = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="mt-8 text-center"
+            transition={{ delay: 0.9 }}
+            className="mt-6 text-center"
           >
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
@@ -239,8 +255,8 @@ const SignUpPage = () => {
         </motion.div>
       </div>
 
-      {/* Right side - Visual */}
-      <div className="hidden lg:block w-1/2 bg-gradient-to-br from-blue-50 to-blue-100 relative">
+      {/* Right side - Visual - Hidden on mobile, shown on lg and up */}
+      <div className="hidden lg:block lg:w-1/2 bg-gradient-to-br from-blue-50 to-blue-100 relative">
         <div className="absolute inset-0 flex items-center justify-center p-12">
           <div className="text-center max-w-lg mx-auto">
             <motion.div 
@@ -250,7 +266,7 @@ const SignUpPage = () => {
               className="mb-8"
             >
               <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto shadow-lg">
-                <FiCreditCard className="text-white text-3xl" />
+                <FiUser className="text-white text-3xl" />
               </div>
             </motion.div>
             <motion.h2 
@@ -259,7 +275,7 @@ const SignUpPage = () => {
               transition={{ delay: 0.6 }}
               className="text-3xl font-bold text-gray-800 mb-4"
             >
-              Modern Banking Solutions
+              Secure Banking Made Simple
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -267,7 +283,7 @@ const SignUpPage = () => {
               transition={{ delay: 0.8 }}
               className="text-gray-600 text-lg"
             >
-              Join thousands of customers who trust us with their financial needs.
+              Manage your finances with confidence using our industry-leading security features.
             </motion.p>
           </div>
         </div>
