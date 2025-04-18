@@ -197,21 +197,20 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Logo Cloud */}
       <div className="bg-white py-8 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-semibold uppercase text-gray-500 tracking-wider mb-6">
-            Trusted by leading companies
-          </p>
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 items-center">
-            {['TechCorp', 'Finova', 'GlobalBank', 'SwiftPay', 'BlueEdge'].map((company) => (
-              <div key={company} className="col-span-1 flex justify-center opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <span className="text-xl font-bold text-gray-700">{company}</span>
-              </div>
-            ))}
-          </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p className="text-center text-sm font-semibold uppercase text-gray-500 tracking-wider mb-6">
+      Trusted by leading companies
+    </p>
+    <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 items-center">
+      {['Miamour', 'Ijeuwa', 'Arigo NG', 'Zidora', 'MyArigo'].map((company) => (
+        <div key={company} className="col-span-1 flex justify-center opacity-70 hover:opacity-100 transition-opacity duration-200">
+          <span className="text-xl font-bold text-gray-700">{company}</span>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
 
       {/* Features Section */}
       <div id="features" className="py-12 sm:py-16 lg:py-20 bg-gray-50">

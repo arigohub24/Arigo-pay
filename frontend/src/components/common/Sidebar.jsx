@@ -188,70 +188,61 @@ const Sidebar = () => {
           ))}
         </ul>
 
-        {/* User Profile - Improved for both states */}
+        {/* User Profile - Completely redesigned for mobile */}
         {authUser && (
           <div className="mt-auto mb-4 mx-3">
             <motion.div
-              className={`p-3 bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-300`}
+              className={`p-2 bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-300 flex items-center ${
+                isExpanded ? "justify-between" : "flex-col"
+              }`}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="flex items-center justify-between">
-                <Link
-                  to={`/profile/${authUser.username}`}
-                  className={`flex items-center flex-1 ${!isExpanded && "justify-center"}`}
-                >
-                  <motion.div className="relative" whileHover={{ rotate: 5 }}>
-                    <div className="rounded-full ring-2 ring-indigo-200 overflow-hidden">
-                      <img
-                        src={authUser?.profileImg || "/avatar-placeholder.png"}
-                        alt="Profile"
-                        className={`${isExpanded ? "w-8 h-8" : "w-10 h-10"} object-cover`}
-                      />
-                    </div>
-                  </motion.div>
-                  
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        className="ml-3 flex-1 overflow-hidden"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10 }}
-                      >
-                        <p className="text-gray-800 font-semibold text-sm truncate">{authUser?.fullName}</p>
-                        <p className="text-gray-500 text-xs">@{authUser?.username}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </Link>
+              {/* Profile section */}
+              <Link
+                to={`/profile/${authUser.username}`}
+                className={`flex items-center ${isExpanded ? "flex-1" : "justify-center w-full mb-2"}`}
+              >
+                <motion.div className="relative" whileHover={{ rotate: 5 }}>
+                  <div className="rounded-full ring-2 ring-indigo-200 overflow-hidden">
+                    <img
+                      src={authUser?.profileImg || "/avatar-placeholder.png"}
+                      alt="Profile"
+                      className="w-8 h-8 object-cover"
+                    />
+                  </div>
+                </motion.div>
+                
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      className="ml-3 flex-1 overflow-hidden"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                    >
+                      <p className="text-gray-800 font-semibold text-sm truncate">{authUser?.fullName}</p>
+                      <p className="text-gray-500 text-xs">@{authUser?.username}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </Link>
 
-                {/* Logout button - Consistently positioned in both states */}
-                <motion.button
-                  onClick={handleLogout}
-                  className={`rounded-full hover:bg-red-50 transition-colors ${
-                    isExpanded ? "p-2 ml-1" : "p-2"
-                  }`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaSignOutAlt className={`text-red-500 ${isExpanded ? "w-4 h-4" : "w-4 h-4"}`} />
-                </motion.button>
-              </div>
-              
-              {/* Username for collapsed state - only show if not expanded */}
-              {!isExpanded && authUser?.username && (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="text-xs text-gray-600 font-medium mt-1.5 text-center truncate"
-                >
-                  {authUser.username.length > 6 
-                    ? `${authUser.username.substring(0, 6)}...` 
-                    : authUser.username}
-                </motion.p>
-              )}
+            {/* Logout button - Repositioned for both states */}
+              <motion.button
+                onClick={handleLogout}
+                className={`rounded-full hover:bg-red-50 transition-colors ${
+                  isExpanded ? "p-2" : "p-2 w-full flex justify-center"
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaSignOutAlt
+                  className={`text-red-500 ${
+                    isExpanded ? "w-4 h-4" : "w-6 h-6"
+                  }`} // Adjust size based on isExpanded
+                />
+              </motion.button>
             </motion.div>
           </div>
         )}
