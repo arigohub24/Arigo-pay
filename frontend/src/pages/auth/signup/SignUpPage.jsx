@@ -50,7 +50,7 @@ const SignUpPage = () => {
     onSuccess: (data) => {
       toast.success("Account created successfully");
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      navigate("/verify", { state: { email: data.email } }); // Navigate to verification with email
+      navigate("/onboarding", { state: { email: data.email } }); // Navigate to verification with email
     },
   });
 
